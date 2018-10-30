@@ -1,0 +1,10 @@
+.jumbotron{
+    background-image: url("https://www.gamersnexus.net/images/media/logos/misc/reddit-logo-gray.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+#jumboContainer{
+    margin-top: 70px;
+}
