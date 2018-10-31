@@ -14,6 +14,16 @@ router.get("/api/article", function(req, res) {
   });
 });
 
+router.get("/saved", function(req, res) {
+  db.Article.find({ saved: true }).then(function(articles) {
+    console.log(articles);
+    // res.render("recorded", {
+    //   save: articles
+    // });
+    res.send(articles);
+  });
+});
+
 router.get("/scrape", function(req, res) {
   //initialize axios
   axios.get("https://www.reddit.com/").then(function(response) {
@@ -52,10 +62,30 @@ router.get("/scrape", function(req, res) {
   });
 });
 
-router.put("/api/article", function(req, res) {
-  res.send("Update Article");
+router.put("/api/article/:id", function(req, res) {
+  console.log(req.params.id);
+  db.Article.findByIdAndUpdate(
+    { _id: req.params.id },
+    {
+      $set: {
+        saved: true
+      }
+    }
+  ).catch(function(err) {
+    console.log(err);
+  });
+  res.send(`${req.params.id} saved`);
 });
 
-router.delete("/api/article", function(req, res) {
-  res.send("Delete articles");
+router.delete("/clear", function(req, res) {
+  db.Article.remove({}, function(err, response) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(response);
+      res.json(response);
+    }
+  });
 });
+
+module.exports = router;
