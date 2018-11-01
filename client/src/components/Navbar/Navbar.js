@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = props => (
   <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <div className="container">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/" rel="noopener noreferrer">
         reddit Scraper
       </a>
       <button
@@ -27,8 +27,8 @@ const Navbar = props => (
           <li className="nav-item">
             <a
               className="nav-link"
-              onClick={() => props.handleScrape()}
-              href="/scrape"
+              onClick={() => props.scrapeArticles()}
+              href="/"
             >
               Scrape
             </a>
@@ -37,7 +37,6 @@ const Navbar = props => (
             <a
               className="nav-link"
               href="/saved"
-              onClick={() => props.renderSaved()}
             >
               Saved
             </a>

@@ -2,7 +2,7 @@ import React from "react";
 
 const ArticleCards = ({children}) => {
     return(
-        <div className="cardlist-overflow-container">
+        <div id="mainContainer">
             <ul className="list-group">
                 {children}
             </ul>

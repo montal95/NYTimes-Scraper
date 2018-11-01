@@ -5,23 +5,24 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 router.get("/api/article", function(req, res) {
-  db.Article.find({}, function(error, response) {
-    if (error) {
-      console.log(error);
-    } else {
-      res.json(response);
-    }
-  });
+  db.Article.find({})
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
 });
 
-router.get("/saved", function(req, res) {
-  db.Article.find({ saved: true }).then(function(articles) {
-    console.log(articles);
-    // res.render("recorded", {
-    //   save: articles
-    // });
-    res.send(articles);
-  });
+router.get("/api/article/saved", function(req, res) {
+  db.Article.find({ saved: true })
+    .then(function(dbArticle) {
+      console.log(dbArticle);
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
 });
 
 router.get("/scrape", function(req, res) {
@@ -67,14 +68,15 @@ router.put("/api/article/:id", function(req, res) {
   db.Article.findByIdAndUpdate(
     { _id: req.params.id },
     {
-      $set: {
-        saved: true
-      }
+      $set: { saved: true }
     }
-  ).catch(function(err) {
-    console.log(err);
-  });
-  res.send(`${req.params.id} saved`);
+  )
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
 });
 
 router.delete("/clear", function(req, res) {
@@ -82,7 +84,16 @@ router.delete("/clear", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(response);
+      res.json(response);
+    }
+  });
+});
+
+router.delete("/api/article/:id", function(req, res) {
+  db.Article.remove({ _id: req.params.id }, function(err, response) {
+    if (err) {
+      console.log(err);
+    } else {
       res.json(response);
     }
   });

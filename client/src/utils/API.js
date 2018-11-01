@@ -5,9 +5,20 @@ const API = {
   scrape: function() {
     return axios.get("/scrape");
   },
-
-  getAllArticles: function() {
-    return axios.get("/api/article");
+  getArticles: function() {
+    return axios.get("/api/article/");
+  },
+  saveArticle: function(id) {
+    return axios.put("/api/article/" + id);
+  },
+  clearArticles: function() {
+    return axios.delete("/clear");
+  },
+  savedArticles: function() {
+    return axios.get("/api/article/saved");
+  },
+  clearOneArticle: function(id) {
+    return axios.delete("/api/article/" + id);
   }
 };
 
